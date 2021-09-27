@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Button from '@material-ui/core/Button';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <Button variant="contained">flower-3</Button>;
         <a
           className="App-link"
           href="https://reactjs.org"
