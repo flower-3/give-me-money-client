@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Button from '@material-ui/core/Button';
-
+import HelloWorld from './components/HelloWorld';
 function App() {
   return (
     <div className="App">
@@ -21,6 +21,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <HelloWorld />
     </div>
   );
 }
