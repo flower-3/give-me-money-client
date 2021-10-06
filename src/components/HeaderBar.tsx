@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const HeaderBar: FC = () => {
+export default function HeaderBar() {
   const classes = useStyles();
   const [openFlag, setOpenFlag] = useState(false);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -54,6 +54,4 @@ const HeaderBar: FC = () => {
       </AppBar>
     </div>
   );
-};
-
-export default HeaderBar;
+}

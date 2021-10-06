@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Menu, { MenuProps } from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -40,7 +40,7 @@ interface Props {
   openFlag: boolean;
 }
 
-const HeaderBarMenu: FC<Props> = ({ openFlag }) => {
+export default function HeaderBarMenu({ openFlag }: Props) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   type Menu = {
     primary: string;
@@ -58,6 +58,4 @@ const HeaderBarMenu: FC<Props> = ({ openFlag }) => {
       </StyledMenu>
     </div>
   );
-};
-
-export default HeaderBarMenu;
+}
