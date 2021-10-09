@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Table, TableContainer, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from './style';
 import FooterProfile from './FooterProfile';
 
@@ -57,11 +57,6 @@ export default function Footer() {
       </Grid>
       <Grid item>
         <Typography variant="subtitle2">© 2021 All Rights Reserved</Typography>
-      </Grid>
-      <Grid item>
-        <TableContainer>
-          <Table style={{ minWidth: 650 }} aria-label="simple table"></Table>
-        </TableContainer>
       </Grid>
     </div>
   );
