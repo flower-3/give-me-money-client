@@ -3,9 +3,11 @@ import logo from './logo.svg';
 import './App.css';
 import Button from '@material-ui/core/Button';
 import HelloWorld from './components/HelloWorld';
+import Footer from './components/Footer/Footer';
 function App() {
   return (
     <div className="App">
+      <Footer />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
