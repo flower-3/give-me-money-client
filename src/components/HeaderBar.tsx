@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function HeaderBar() {
   const classes = useStyles();
-  const [openFlag, setOpenFlag] = useState(false);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setOpenFlag(!openFlag);
+  const [isOpened, setIsOpened] = useState(false);
+  const handleClick = () => {
+    setIsOpened(!isOpened);
   };
 
   return (
@@ -43,11 +43,11 @@ export default function HeaderBar() {
             aria-label="menu"
             onClick={handleClick}
           >
-            <HeaderBarMenu openFlag={openFlag}></HeaderBarMenu>
+            <HeaderBarMenu isOpened={isOpened}></HeaderBarMenu>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            News
+            Give Me Money
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>

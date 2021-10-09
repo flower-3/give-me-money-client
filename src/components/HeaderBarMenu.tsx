@@ -37,21 +37,21 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 interface Props {
-  openFlag: boolean;
+  isOpened: boolean;
 }
 
-export default function HeaderBarMenu({ openFlag }: Props) {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  type Menu = {
-    primary: string;
-  };
-  const menuList: Array<Menu> = [{ primary: 'menu1' }, { primary: 'menu2' }, { primary: 'menu3' }];
+type Menu = {
+  primary: string;
+};
 
+const menuList: Array<Menu> = [{ primary: 'menu1' }, { primary: 'menu2' }, { primary: 'menu3' }];
+
+export default function HeaderBarMenu({ isOpened }: Props) {
   return (
     <div>
-      <StyledMenu id="customized-menu" anchorEl={anchorEl} keepMounted open={openFlag}>
-        {menuList.map((menu, index) => (
-          <StyledMenuItem key={index}>
+      <StyledMenu id="customized-menu" keepMounted open={isOpened}>
+        {menuList.map((menu) => (
+          <StyledMenuItem key={menu.primary}>
             <ListItemText primary={menu.primary} />
           </StyledMenuItem>
         ))}
