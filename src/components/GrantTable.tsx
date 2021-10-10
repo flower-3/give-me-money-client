@@ -11,7 +11,8 @@ import TableRow from '@material-ui/core/TableRow';
 
 const useStyles = makeStyles({
   root: {
-    width: '100%',
+    width: '70%',
+    margin: 'auto',
   },
   container: {
     maxHeight: 440,
