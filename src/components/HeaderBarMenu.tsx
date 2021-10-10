@@ -38,6 +38,7 @@ const StyledMenuItem = withStyles((theme) => ({
 
 interface Props {
   isOpened: boolean;
+  anchorEl: HTMLElement | null;
 }
 
 type Menu = {
@@ -46,10 +47,10 @@ type Menu = {
 
 const menuList: Array<Menu> = [{ primary: 'menu1' }, { primary: 'menu2' }, { primary: 'menu3' }];
 
-export default function HeaderBarMenu({ isOpened }: Props) {
+export default function HeaderBarMenu({ isOpened, anchorEl }: Props) {
   return (
     <div>
-      <StyledMenu id="customized-menu" keepMounted open={isOpened}>
+      <StyledMenu id="customized-menu" anchorEl={anchorEl} keepMounted open={isOpened}>
         {menuList.map((menu) => (
           <StyledMenuItem key={menu.primary}>
             <ListItemText primary={menu.primary} />
