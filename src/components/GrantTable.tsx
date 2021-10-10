@@ -88,15 +88,13 @@ export default function GrantTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Grant.data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => (
-                <TableRow hover key={index}>
-                  {columns.map((column, index) => (
-                    <TableCell key={index}>{row[column]}</TableCell>
-                  ))}
-                </TableRow>
-              ))}
+            {Grant.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+              <TableRow hover key={row.서비스ID}>
+                {columns.map((column, index) => (
+                  <TableCell key={index}>{row[column]}</TableCell>
+                ))}
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
