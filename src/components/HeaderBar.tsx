@@ -28,8 +28,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function HeaderBar() {
   const classes = useStyles();
   const [isOpened, setIsOpened] = useState(false);
-  const handleClick = () => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setIsOpened(!isOpened);
+    setAnchorEl(event.currentTarget);
   };
 
   return (
@@ -43,7 +45,7 @@ export default function HeaderBar() {
             aria-label="menu"
             onClick={handleClick}
           >
-            <HeaderBarMenu isOpened={isOpened}></HeaderBarMenu>
+            <HeaderBarMenu isOpened={isOpened} anchorEl={anchorEl}></HeaderBarMenu>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
