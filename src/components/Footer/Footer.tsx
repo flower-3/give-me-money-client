@@ -1,67 +1,22 @@
 import React from 'react';
-import { AppBar, BottomNavigation, Grid, Typography } from '@material-ui/core';
+import { AppBar, Grid, Typography } from '@material-ui/core';
 import { useStyles } from './style';
-import FooterProfile from './FooterProfile';
-
-interface Profile {
-  name: string;
-  position: string;
-  instagramAddress: string;
-  githubAddress: string;
-}
+import { GitHub } from '@material-ui/icons';
 
 export default function Footer() {
   const classes = useStyles();
 
-  const profileList: Profile[] = [
-    {
-      name: '김건영',
-      position: 'developer',
-      instagramAddress: 'https://www.instagram.com/aengun_/',
-      githubAddress: 'https://github.com/aengun',
-    },
-    {
-      name: '박영운',
-      position: 'developer',
-      instagramAddress: 'https://instagram.com/_youngwoon/',
-      githubAddress: 'https://github.com/youngpark17',
-    },
-    {
-      name: '이주형',
-      position: 'developer',
-      instagramAddress: 'https://instagram.com/joooooooohy/',
-      githubAddress: 'https://github.com/junam2',
-    },
-  ];
-
   return (
     <div className={classes.root}>
       <AppBar position="relative" className={classes.appBottomBar}>
-        <Grid container>
-          <Grid container direction="column" spacing={2}>
-            <Grid item>
-              <Grid container direction="row" spacing={2} className={classes.grid}>
-                <Grid item xs={3}>
-                  <Grid container direction="column">
-                    <Grid item className={classes.profileGridItem} color="primary">
-                      <Typography variant="body1">고객센터 : 1588-XXXX</Typography>
-                    </Grid>
-                    <Grid item className={classes.profileGridItem}>
-                      <Typography variant="body1">주소 : none</Typography>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                {profileList.map((row: Profile, index) => {
-                  return <FooterProfile key={index} {...row} />;
-                })}
-              </Grid>
-            </Grid>
+        <Grid container alignContent="center" className={classes.grid}>
+          <Grid item xs={4}>
+            <GitHub />
           </Grid>
-          <Grid item style={{ display: 'inline' }}>
-            <Typography variant="subtitle2" className={classes.copyright}>
-              © 2021 All Rights Reserved
-            </Typography>
+          <Grid item xs={4}>
+            <Typography variant="h6">contact : </Typography>
           </Grid>
+          <Grid item xs={4}></Grid>
         </Grid>
       </AppBar>
     </div>
