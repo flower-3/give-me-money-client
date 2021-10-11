@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import GrantServiceList from '../interface/Grant.Interface';
 
 const useStyles = makeStyles({
   root: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
 const columns = ['지원유형', '서비스명', '지원대상', '신청기한', '부서명', '조회수'] as const;
 
 // using this example until getting grant API
-const Grant = {
+const Grant: GrantServiceList = {
   page: 0,
   perPage: 0,
   totalCount: 0,
