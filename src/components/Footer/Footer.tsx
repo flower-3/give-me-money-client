@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { AppBar, BottomNavigation, Grid, Typography } from '@material-ui/core';
 import { useStyles } from './style';
 import FooterProfile from './FooterProfile';
 
@@ -36,28 +36,34 @@ export default function Footer() {
 
   return (
     <div className={classes.root}>
-      <Grid container direction="column" spacing={2}>
-        <Grid item>
-          <Grid container direction="row" spacing={2} className={classes.grid}>
-            <Grid item xs={3}>
-              <Grid container direction="column">
-                <Grid item className={classes.profileGridItem} color="primary">
-                  <Typography variant="body1">고객센터 : 1588-XXXX</Typography>
+      <AppBar position="relative" className={classes.appBottomBar}>
+        <Grid container>
+          <Grid container direction="column" spacing={2}>
+            <Grid item>
+              <Grid container direction="row" spacing={2} className={classes.grid}>
+                <Grid item xs={3}>
+                  <Grid container direction="column">
+                    <Grid item className={classes.profileGridItem} color="primary">
+                      <Typography variant="body1">고객센터 : 1588-XXXX</Typography>
+                    </Grid>
+                    <Grid item className={classes.profileGridItem}>
+                      <Typography variant="body1">주소 : none</Typography>
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <Grid item className={classes.profileGridItem}>
-                  <Typography variant="body1">주소 : none</Typography>
-                </Grid>
+                {profileList.map((row: Profile, index) => {
+                  return <FooterProfile key={index} {...row} />;
+                })}
               </Grid>
             </Grid>
-            {profileList.map((row: Profile, index) => {
-              return <FooterProfile key={index} {...row} />;
-            })}
+          </Grid>
+          <Grid item style={{ display: 'inline' }}>
+            <Typography variant="subtitle2" className={classes.copyright}>
+              © 2021 All Rights Reserved
+            </Typography>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid item>
-        <Typography variant="subtitle2">© 2021 All Rights Reserved</Typography>
-      </Grid>
+      </AppBar>
     </div>
   );
 }
