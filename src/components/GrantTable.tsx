@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import GrantServiceList from '../interface/Grant.Interface';
+import { GrantServiceList } from '../interface/Grant.Interface';
 
 const useStyles = makeStyles({
   root: {
