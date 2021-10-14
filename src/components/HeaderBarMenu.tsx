@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Menu, { MenuProps } from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { PropTypes } from '@material-ui/core';
 
 const StyledMenu = withStyles({
   paper: {
@@ -39,20 +40,21 @@ const StyledMenuItem = withStyles((theme) => ({
 interface Props {
   isOpened: boolean;
   anchorEl: HTMLElement | null;
+  menuClick: (menuName: string) => void;
 }
 
 type Menu = {
   primary: string;
 };
 
-const menuList: Array<Menu> = [{ primary: 'menu1' }, { primary: 'menu2' }, { primary: 'menu3' }];
+const menuList: Array<Menu> = [{ primary: 'HOME' }, { primary: 'MENU1' }, { primary: 'MENU2' }];
 
-export default function HeaderBarMenu({ isOpened, anchorEl }: Props) {
+export default function HeaderBarMenu({ isOpened, anchorEl, menuClick }: Props) {
   return (
     <div>
       <StyledMenu id="customized-menu" anchorEl={anchorEl} keepMounted open={isOpened}>
         {menuList.map((menu) => (
-          <StyledMenuItem key={menu.primary}>
+          <StyledMenuItem key={menu.primary} onClick={() => menuClick(menu.primary)}>
             <ListItemText primary={menu.primary} />
           </StyledMenuItem>
         ))}
