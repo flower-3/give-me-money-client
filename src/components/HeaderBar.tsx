@@ -20,9 +20,6 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between',
       position: 'static',
     },
-    menuButton: {
-      marginRight: '',
-    },
     title: { paddingRight: '120px' },
     textField: {
       marginLeft: '30px',
@@ -47,13 +44,7 @@ export default function HeaderBar() {
     <div>
       <AppBar className={classes.appBar}>
         <Toolbar className={classes.tooBar}>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={handleClick}
-          >
+          <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleClick}>
             <HeaderBarMenu
               isOpened={isOpened}
               anchorEl={anchorEl}
