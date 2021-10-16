@@ -1,0 +1,138 @@
+import React, { useState, useEffect } from 'react';
+import axios, { AxiosResponse } from 'axios';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Typography,
+} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      margin: 0,
+      padding: theme.spacing(2),
+    },
+    closeButton: {
+      position: 'absolute',
+      right: theme.spacing(1),
+      top: theme.spacing(1),
+      color: theme.palette.grey[500],
+    },
+  }),
+);
+
+interface grantInfo {
+  SVC_ID: string;
+  구비서류: string;
+  문의처전화번호: string;
+  법령: string;
+  서비스명: string;
+  서비스목적: string;
+  선정기준: string;
+  소관기관명: string;
+  수정일시: string;
+  신청기한: string;
+  신청방법: string;
+  온라인신청사이트URL: string;
+  자치법규: string;
+  접수기관명: string;
+  지원내용: string;
+  지원대상: string;
+  지원유형: string;
+  행정규칙: string;
+}
+
+export default function Modal() {
+  /*========== state ==========*/
+  const [open, setOpen] = useState<boolean>(false);
+  const [serviceId, setServiceId] = useState<string>('000000465790');
+  const [info, setInfo] = useState<grantInfo>();
+  const [error, setError] = useState(null);
+
+  /*========== style ==========*/
+  const classes = useStyles();
+
+  /*========== useEffect ==========*/
+  useEffect(() => {
+    const fetchDetail = async () => {
+      try {
+        setError(null);
+        const response: AxiosResponse = await axios.get(
+          'http://34.83.199.174:8080/api/v1/gov24/v1/serviceDetail?serviceId=' + serviceId,
+        );
+        const responseData: any = response.data;
+        setInfo(responseData.data.data[0]);
+      } catch (e: any) {
+        setError(e);
+      }
+    };
+
+    fetchDetail();
+  }, []);
+
+  /*========== event handler ==========*/
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  if (error) return <div>에러가 발생했습니다.</div>;
+
+  return (
+    <div>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Open modal
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>
+          <Typography variant="h6">보조금 정보 상세</Typography>
+          <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          SVC_ID : {info?.SVC_ID} <br />
+          구비서류 : {info?.구비서류} <br />
+          문의처전화번호 : {info?.문의처전화번호} <br />
+          법령 : {info?.법령} <br />
+          서비스명 : {info?.서비스명} <br />
+          서비스목적 : {info?.서비스목적} <br />
+          선정기준 : {info?.선정기준} <br />
+          소관기관명 : {info?.소관기관명} <br />
+          수정일시 : {info?.수정일시} <br />
+          신청기한 : {info?.신청기한} <br />
+          신청방법 : {info?.신청방법} <br />
+          온라인신청사이트URL : {info?.온라인신청사이트URL} <br />
+          자치법규 : {info?.자치법규} <br />
+          접수기관명 : {info?.접수기관명} <br />
+          지원내용 : {info?.지원내용} <br />
+          지원대상 : {info?.지원대상} <br />
+          지원유형 : {info?.지원유형} <br />
+          행정규칙 : {info?.행정규칙} <br />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} variant="contained">
+            닫기
+          </Button>
+          <Button
+            onClick={() => window.open(info?.온라인신청사이트URL)}
+            color="primary"
+            variant="contained"
+            autoFocus
+          >
+            신청하러 가기
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
