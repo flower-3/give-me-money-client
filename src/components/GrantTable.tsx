@@ -14,7 +14,7 @@ import { getGrantServiceList, getGrantServiceDetail } from '../api/grant/getGran
 
 const useStyles = makeStyles({
   root: {
-    width: '90%',
+    width: '95%',
     margin: '30px auto',
   },
   container: {
@@ -88,6 +88,8 @@ export default function GrantTable() {
       </TableContainer>
       <div>
         <Pagination
+          showFirstButton
+          showLastButton
           className={classes.pagination}
           color="secondary"
           count={grant != null ? Math.round(grant.totalCount / rowsPerPage) : 0}
