@@ -8,8 +8,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import Pagination from '@material-ui/lab/Pagination';
 import TableRow from '@material-ui/core/TableRow';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { GrantServiceList } from '../interface/Grant.Interface';
-import axios, { AxiosResponse } from 'axios';
+import { getGrantServiceList, getGrantServiceDetail } from '../api/grant/getGrantService';
 
 const useStyles = makeStyles({
   root: {
@@ -34,36 +35,29 @@ export default function GrantTable() {
   const [page, setPage] = React.useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [grant, setGrant] = React.useState<GrantServiceList | null>(null);
-
-  let url = `http://34.83.199.174:8080/api/v1/gov24/v1/serviceList?page=${page}&perPage=${rowsPerPage}`;
+  const [error, setError] = React.useState<unknown>();
 
   React.useEffect(() => {
-    const fetchData = async () => {
+    try {
       setLoading(true);
-      try {
-        const response: AxiosResponse<GrantServiceList | any> = await axios(url, {
-          params: { page: page, perPage: rowsPerPage },
-        });
-        setGrant(response.data.data);
-      } catch (e) {
-        console.log(e);
-      }
+      getGrantServiceList(page, rowsPerPage).then((data) => {
+        setGrant(data.response);
+        setError(data.error);
+      });
       setLoading(false);
-    };
-    fetchData();
-  }, []);
+    } catch (e) {
+      setError(e);
+      console.log(error);
+    }
+  }, [page]);
 
-  // 아예 안쓰는 거면 _ 로 하는게 좋다. (아는거면 쓰는게 좋음)
-  const handleChangePage = (_: any, newPage: number) => {
+  const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
-    url = `http://34.83.199.174:8080/api/v1/gov24/v1/serviceList?page=${page}&perPage=${rowsPerPage}`;
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // + 보다는 number로 명시해서 형변환해주는게 좋다.
-    setRowsPerPage(+event.target.value);
+    setRowsPerPage(Number(event.target.value));
     setPage(1);
-    url = `http://34.83.199.174:8080/api/v1/gov24/v1/serviceList?page=${page}&perPage=${rowsPerPage}`;
   };
   // 테이블도 따로 useTable로 빼면 좋음
   return (
@@ -78,14 +72,17 @@ export default function GrantTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {!loading &&
+            {loading ? (
+              <CircularProgress disableShrink />
+            ) : (
               grant?.data.map((row) => (
                 <TableRow hover key={row.서비스ID}>
                   {columns.map((column, index) => (
                     <TableCell key={index}>{row[column]}</TableCell>
                   ))}
                 </TableRow>
-              ))}
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>
