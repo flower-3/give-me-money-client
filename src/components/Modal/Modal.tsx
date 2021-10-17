@@ -4,13 +4,13 @@ import {
   Button,
   Dialog,
   DialogActions,
-  DialogContent,
   DialogTitle,
   IconButton,
   Typography,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import ModalContent from './ModalContent';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface grantInfo {
+export interface GrantInfo {
   SVC_ID: string;
   구비서류: string;
   문의처전화번호: string;
@@ -51,8 +51,8 @@ interface grantInfo {
 export default function Modal() {
   /*========== state ==========*/
   const [open, setOpen] = useState<boolean>(false);
-  const [serviceId, setServiceId] = useState<string>('000000465790');
-  const [info, setInfo] = useState<grantInfo>();
+  const [serviceId, setServiceId] = useState<string>('000000465790'); // 테스트용 서비스 아이디
+  const [info, setInfo] = useState<GrantInfo>();
   const [error, setError] = useState(null);
 
   /*========== style ==========*/
@@ -72,7 +72,6 @@ export default function Modal() {
         setError(e);
       }
     };
-
     fetchDetail();
   }, []);
 
@@ -89,36 +88,18 @@ export default function Modal() {
 
   return (
     <div>
+      {/* 모달 테스트용 버튼, 추후 삭제 예정 */}
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Open modal
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} maxWidth={'sm'} fullWidth>
         <DialogTitle>
           <Typography variant="h6">보조금 정보 상세</Typography>
           <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent dividers>
-          SVC_ID : {info?.SVC_ID} <br />
-          구비서류 : {info?.구비서류} <br />
-          문의처전화번호 : {info?.문의처전화번호} <br />
-          법령 : {info?.법령} <br />
-          서비스명 : {info?.서비스명} <br />
-          서비스목적 : {info?.서비스목적} <br />
-          선정기준 : {info?.선정기준} <br />
-          소관기관명 : {info?.소관기관명} <br />
-          수정일시 : {info?.수정일시} <br />
-          신청기한 : {info?.신청기한} <br />
-          신청방법 : {info?.신청방법} <br />
-          온라인신청사이트URL : {info?.온라인신청사이트URL} <br />
-          자치법규 : {info?.자치법규} <br />
-          접수기관명 : {info?.접수기관명} <br />
-          지원내용 : {info?.지원내용} <br />
-          지원대상 : {info?.지원대상} <br />
-          지원유형 : {info?.지원유형} <br />
-          행정규칙 : {info?.행정규칙} <br />
-        </DialogContent>
+        <ModalContent info={info} />
         <DialogActions>
           <Button onClick={handleClose} variant="contained">
             닫기
