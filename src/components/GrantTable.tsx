@@ -47,7 +47,7 @@ export default function GrantTable() {
       setLoading(false);
     } catch (e) {
       setError(e);
-      console.log(error);
+      alert('getGrantServiceList error message: ' + error);
     }
   }, [page]);
 
@@ -59,7 +59,7 @@ export default function GrantTable() {
     setRowsPerPage(Number(event.target.value));
     setPage(1);
   };
-  // 테이블도 따로 useTable로 빼면 좋음
+
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
