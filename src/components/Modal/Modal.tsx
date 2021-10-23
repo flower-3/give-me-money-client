@@ -50,7 +50,7 @@ export interface GrantInfo {
 
 export default function Modal() {
   /*========== state ==========*/
-  const [open, setOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [serviceId, setServiceId] = useState<string>('000000465790'); // 테스트용 서비스 아이디
   const [info, setInfo] = useState<GrantInfo>();
   const [error, setError] = useState(null);
@@ -77,14 +77,12 @@ export default function Modal() {
 
   /*========== event handler ==========*/
   const handleClickOpen = () => {
-    setOpen(true);
+    setIsModalOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setIsModalOpen(false);
   };
-
-  if (error) return <div>에러가 발생했습니다.</div>;
 
   return (
     <div>
@@ -92,7 +90,7 @@ export default function Modal() {
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Open modal
       </Button>
-      <Dialog open={open} onClose={handleClose} maxWidth={'sm'} fullWidth>
+      <Dialog open={isModalOpen} onClose={handleClose} maxWidth={'sm'} fullWidth>
         <DialogTitle>
           <Typography variant="h6">보조금 정보 상세</Typography>
           <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
