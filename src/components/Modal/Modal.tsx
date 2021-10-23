@@ -11,6 +11,8 @@ import {
 import CloseIcon from '@material-ui/icons/Close';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import ModalContent from './ModalContent';
+import { getGrantServiceDetail } from '../../api/grant/getGrantService';
+import { GrantServiceDetailModel } from '../../interface/Grant.Interface';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,52 +29,41 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export interface GrantInfo {
-  SVC_ID: string;
-  구비서류: string;
-  문의처전화번호: string;
-  법령: string;
-  서비스명: string;
-  서비스목적: string;
-  선정기준: string;
-  소관기관명: string;
-  수정일시: string;
-  신청기한: string;
-  신청방법: string;
-  온라인신청사이트URL: string;
-  자치법규: string;
-  접수기관명: string;
-  지원내용: string;
-  지원대상: string;
-  지원유형: string;
-  행정규칙: string;
-}
-
 export default function Modal() {
   /*========== state ==========*/
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [serviceId, setServiceId] = useState<string>('000000465790'); // 테스트용 서비스 아이디
-  const [info, setInfo] = useState<GrantInfo>();
-  const [error, setError] = useState(null);
+  const [info, setInfo] = useState<GrantServiceDetailModel>();
+  const [error, setError] = useState<unknown>();
 
   /*========== style ==========*/
   const classes = useStyles();
 
   /*========== useEffect ==========*/
+  // useEffect(() => {
+  //   const fetchDetail = async () => {
+  //     try {
+  //       setError(null);
+  //       const response: AxiosResponse = await axios.get(
+  //         'http://34.83.199.174:8080/api/v1/gov24/v1/serviceDetail?serviceId=' + serviceId,
+  //       );
+  //       const responseData: any = response.data;
+  //       setInfo(responseData.data.data[0]);
+  //     } catch (e: any) {
+  //       setError(e);
+  //     }
+  //   };
+  //   fetchDetail();
+  // }, []);
   useEffect(() => {
-    const fetchDetail = async () => {
-      try {
-        setError(null);
-        const response: AxiosResponse = await axios.get(
-          'http://34.83.199.174:8080/api/v1/gov24/v1/serviceDetail?serviceId=' + serviceId,
-        );
-        const responseData: any = response.data;
-        setInfo(responseData.data.data[0]);
-      } catch (e: any) {
-        setError(e);
-      }
-    };
-    fetchDetail();
+    try {
+      getGrantServiceDetail(serviceId).then((data) => {
+        setInfo(data.response.data[0]);
+      });
+    } catch (e) {
+      setError(e);
+      alert('getGrantServiceDetail error message: ' + error);
+    }
   }, []);
 
   /*========== event handler ==========*/
