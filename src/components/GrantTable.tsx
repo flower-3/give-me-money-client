@@ -27,7 +27,14 @@ const useStyles = makeStyles({
   },
 });
 
-const columns = ['지원유형', '서비스명', '지원대상', '신청기한', '부서명', '조회수'] as const;
+const columns = [
+  { label: '지원유형', width: '10%' },
+  { label: '서비스명', width: '15%' },
+  { label: '지원대상', width: '40%' },
+  { label: '신청기한', width: '20%' },
+  { label: '부서명', width: '10%' },
+  { label: '조회수', width: '5%' },
+] as const;
 
 export default function GrantTable() {
   const classes = useStyles();
@@ -67,7 +74,9 @@ export default function GrantTable() {
           <TableHead>
             <TableRow>
               {columns.map((column, index) => (
-                <TableCell key={index}>{column}</TableCell>
+                <TableCell key={index} style={{ width: column.width }}>
+                  {column.label}
+                </TableCell>
               ))}
             </TableRow>
           </TableHead>
@@ -78,7 +87,7 @@ export default function GrantTable() {
               grant?.data.map((row) => (
                 <TableRow hover key={row.서비스ID}>
                   {columns.map((column, index) => (
-                    <TableCell key={index}>{row[column]}</TableCell>
+                    <TableCell key={index}>{row[column.label]}</TableCell>
                   ))}
                 </TableRow>
               ))
