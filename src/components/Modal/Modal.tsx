@@ -29,10 +29,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Modal() {
+type ModalProps = {
+  isModalOpen: boolean;
+  setIsModalOpen: (open: boolean) => void;
+  serviceId: string;
+};
+
+export default function Modal({ isModalOpen, serviceId, setIsModalOpen }: ModalProps) {
   /*========== state ==========*/
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [serviceId, setServiceId] = useState<string>('000000465790'); // 테스트용 서비스 아이디
   const [info, setInfo] = useState<GrantServiceDetailModel>();
   const [error, setError] = useState<unknown>();
 
