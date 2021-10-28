@@ -40,21 +40,6 @@ export default function Modal() {
   const classes = useStyles();
 
   /*========== useEffect ==========*/
-  // useEffect(() => {
-  //   const fetchDetail = async () => {
-  //     try {
-  //       setError(null);
-  //       const response: AxiosResponse = await axios.get(
-  //         'http://34.83.199.174:8080/api/v1/gov24/v1/serviceDetail?serviceId=' + serviceId,
-  //       );
-  //       const responseData: any = response.data;
-  //       setInfo(responseData.data.data[0]);
-  //     } catch (e: any) {
-  //       setError(e);
-  //     }
-  //   };
-  //   fetchDetail();
-  // }, []);
   useEffect(() => {
     try {
       getGrantServiceDetail(serviceId).then((data) => {
