@@ -8,19 +8,19 @@ const useStyles = makeStyles({
     width: '100%',
     position: 'absolute',
     bottom: 0,
-    marginTop: 20,
+    marginTop: '20px',
   },
   appBottomBar: {
     top: 'auto',
     bottom: 0,
     height: '100%',
-    marginTop: 10,
+    marginTop: '10px',
   },
   grid: {
     height: '100%',
   },
   gridItem: {
-    padding: 15,
+    padding: '15px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
