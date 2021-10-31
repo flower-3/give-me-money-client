@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -10,7 +10,8 @@ import Pagination from '@material-ui/lab/Pagination';
 import TableRow from '@material-ui/core/TableRow';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { GrantServiceList } from '../interface/Grant.Interface';
-import { getGrantServiceList, getGrantServiceDetail } from '../api/grant/getGrantService';
+import { getGrantServiceList } from '../api/grant/getGrantService';
+import Modal from './Modal/Modal';
 
 const useStyles = makeStyles({
   root: {
@@ -37,14 +38,20 @@ const columns = [
 ] as const;
 
 export default function GrantTable() {
+  /*========== style ==========*/
   const classes = useStyles();
-  const [loading, setLoading] = React.useState(false);
-  const [page, setPage] = React.useState(1);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [grant, setGrant] = React.useState<GrantServiceList | null>(null);
-  const [error, setError] = React.useState<unknown>();
 
-  React.useEffect(() => {
+  /*========== state ==========*/
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [grant, setGrant] = useState<GrantServiceList | null>(null);
+  const [error, setError] = useState<unknown>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [serviceId, setServiceId] = useState('');
+
+  /*========== useEffect ==========*/
+  useEffect(() => {
     try {
       setLoading(true);
       getGrantServiceList(page, rowsPerPage).then((data) => {
@@ -58,6 +65,7 @@ export default function GrantTable() {
     }
   }, [page]);
 
+  /*========== event handler ==========*/
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -67,46 +75,60 @@ export default function GrantTable() {
     setPage(1);
   };
 
+  const handleModalOpenEvent = (serviceId: string) => {
+    setIsModalOpen(true);
+    setServiceId(serviceId);
+  };
+
   return (
-    <Paper className={classes.root}>
-      <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column, index) => (
-                <TableCell key={index} style={{ width: column.width }}>
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {loading ? (
-              <CircularProgress disableShrink />
-            ) : (
-              grant?.data.map((row) => (
-                <TableRow hover key={row.서비스ID}>
-                  {columns.map((column, index) => (
-                    <TableCell key={index}>{row[column.label]}</TableCell>
-                  ))}
-                </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <div>
-        <Pagination
-          showFirstButton
-          showLastButton
-          className={classes.pagination}
-          color="secondary"
-          count={grant != null ? Math.round(grant.totalCount / rowsPerPage) : 0}
-          variant="outlined"
-          page={page}
-          onChange={handleChangePage}
-        />
-      </div>
-    </Paper>
+    <div>
+      <Paper className={classes.root}>
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column, index) => (
+                  <TableCell key={index} style={{ width: column.width }}>
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {loading ? (
+                <CircularProgress disableShrink />
+              ) : (
+                grant?.data.map((row) => (
+                  <TableRow
+                    hover
+                    key={row.서비스ID}
+                    onClick={() => {
+                      handleModalOpenEvent(row.서비스ID);
+                    }}
+                  >
+                    {columns.map((column, index) => (
+                      <TableCell key={index}>{row[column.label]}</TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <div>
+          <Pagination
+            showFirstButton
+            showLastButton
+            className={classes.pagination}
+            color="secondary"
+            count={grant != null ? Math.round(grant.totalCount / rowsPerPage) : 0}
+            variant="outlined"
+            page={page}
+            onChange={handleChangePage}
+          />
+        </div>
+      </Paper>
+      <Modal isModalOpen={isModalOpen} serviceId={serviceId} setIsModalOpen={setIsModalOpen} />
+    </div>
   );
 }
