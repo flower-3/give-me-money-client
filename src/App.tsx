@@ -4,13 +4,14 @@ import HeaderBar from './components/HeaderBar';
 import GrantTable from './components/GrantTable';
 import Footer from './components/Footer/Footer';
 import Modal from './components/Modal/Modal';
+import { Route } from 'react-router';
 
 function App() {
   return (
     <div className="App">
       <HeaderBar></HeaderBar>
-      <GrantTable />
-      <Modal />
+      <Route path="/" exact={true} component={GrantTable} />
+      <Route path="/modal" component={Modal} />
       <Footer />
     </div>
   );
