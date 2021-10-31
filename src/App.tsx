@@ -5,6 +5,7 @@ import GrantTable from './components/GrantTable';
 import Footer from './components/Footer/Footer';
 import Modal from './components/Modal/Modal';
 import { Route } from 'react-router';
+import MyPage from './components/MyPage/MyPage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <HeaderBar></HeaderBar>
       <Route path="/" exact={true} component={GrantTable} />
       <Route path="/modal" component={Modal} />
+      <Route path="/mypage" component={MyPage} />
       <Footer />
     </div>
   );
