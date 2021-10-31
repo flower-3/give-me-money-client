@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     margin: '30px auto',
   },
   container: {
-    maxHeight: 440,
+    maxHeight: '660px',
   },
   pagination: {
     padding: '15px',
