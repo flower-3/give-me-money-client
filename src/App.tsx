@@ -10,7 +10,6 @@ function App() {
     <div className="App">
       <HeaderBar></HeaderBar>
       <GrantTable />
-      <Modal />
       <Footer />
     </div>
   );
