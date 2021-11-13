@@ -128,6 +128,7 @@ export default function GrantTable() {
           />
         </div>
       </Paper>
+      <Modal isModalOpen={isModalOpen} serviceId={serviceId} setIsModalOpen={setIsModalOpen} />
     </div>
   );
 }
