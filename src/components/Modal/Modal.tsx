@@ -29,10 +29,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Modal() {
+type ModalProps = {
+  isModalOpen: boolean;
+  setIsModalOpen: (open: boolean) => void;
+  serviceId: string;
+};
+
+export default function Modal({ isModalOpen, serviceId, setIsModalOpen }: ModalProps) {
   /*========== state ==========*/
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [serviceId, setServiceId] = useState<string>('000000465790'); // 테스트용 서비스 아이디
   const [info, setInfo] = useState<GrantServiceDetailModel>();
   const [error, setError] = useState<unknown>();
 
@@ -40,21 +44,6 @@ export default function Modal() {
   const classes = useStyles();
 
   /*========== useEffect ==========*/
-  // useEffect(() => {
-  //   const fetchDetail = async () => {
-  //     try {
-  //       setError(null);
-  //       const response: AxiosResponse = await axios.get(
-  //         'http://34.83.199.174:8080/api/v1/gov24/v1/serviceDetail?serviceId=' + serviceId,
-  //       );
-  //       const responseData: any = response.data;
-  //       setInfo(responseData.data.data[0]);
-  //     } catch (e: any) {
-  //       setError(e);
-  //     }
-  //   };
-  //   fetchDetail();
-  // }, []);
   useEffect(() => {
     try {
       getGrantServiceDetail(serviceId).then((data) => {
@@ -64,23 +53,36 @@ export default function Modal() {
       setError(e);
       alert('getGrantServiceDetail error message: ' + error);
     }
-  }, []);
+  }, [serviceId]);
 
   /*========== event handler ==========*/
-  const handleClickOpen = () => {
-    setIsModalOpen(true);
-  };
-
   const handleClose = () => {
+    const resetInfo: GrantServiceDetailModel = {
+      SVC_ID: '',
+      지원유형: '',
+      서비스명: '',
+      서비스목적: '',
+      신청기한: '',
+      지원대상: '',
+      선정기준: '',
+      지원내용: '',
+      신청방법: '',
+      구비서류: '',
+      접수기관명: '',
+      문의처전화번호: '',
+      온라인신청사이트URL: '',
+      수정일시: '',
+      소관기관명: '',
+      행정규칙: '',
+      자치법규: '',
+      법령: '',
+    };
+    setInfo(resetInfo);
     setIsModalOpen(false);
   };
 
   return (
     <div>
-      {/* 모달 테스트용 버튼, 추후 삭제 예정 */}
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open modal
-      </Button>
       <Dialog open={isModalOpen} onClose={handleClose} maxWidth={'sm'} fullWidth>
         <DialogTitle>
           <Typography variant="h6">보조금 정보 상세</Typography>
