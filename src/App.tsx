@@ -3,7 +3,6 @@ import './App.css';
 import HeaderBar from './components/HeaderBar';
 import GrantTable from './components/GrantTable';
 import Footer from './components/Footer/Footer';
-import Modal from './components/Modal/Modal';
 import { Route } from 'react-router';
 
 function App() {
@@ -11,7 +10,6 @@ function App() {
     <div className="App">
       <HeaderBar></HeaderBar>
       <Route path="/" exact={true} component={GrantTable} />
-      <Route path="/modal" component={Modal} />
       <Footer />
     </div>
   );
