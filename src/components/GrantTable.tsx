@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     margin: '30px auto',
   },
   container: {
-    maxHeight: '660px',
+    maxHeight: '460px',
   },
   pagination: {
     padding: '15px',
@@ -121,14 +121,13 @@ export default function GrantTable() {
             showLastButton
             className={classes.pagination}
             color="secondary"
-            count={grant != null ? Math.round(grant.totalCount / rowsPerPage) : 0}
+            count={grant != null ? Math.ceil(grant.totalCount / rowsPerPage) : 0}
             variant="outlined"
             page={page}
             onChange={handleChangePage}
           />
         </div>
       </Paper>
-      <Modal isModalOpen={isModalOpen} serviceId={serviceId} setIsModalOpen={setIsModalOpen} />
     </div>
   );
 }
