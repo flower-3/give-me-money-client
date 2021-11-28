@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import loginImage from '../../resources/images/kakao_login.png';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
