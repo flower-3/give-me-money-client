@@ -14,7 +14,6 @@ const setCookie = function (name: string, value: string, exp: number) {
   const date = new Date();
   date.setTime(date.getTime() + exp * 24 * 60 * 60);
   document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
-  console.log(document.cookie);
 };
 const getCookie = function (name: string): string | null {
   const value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
@@ -32,7 +31,6 @@ const setLocalStorageIfUserLoggined = (): void => {
 };
 
 const authenticateKakaoUser = (): void => {
-  localStorage.clear();
   //개발서버
   location.href =
     'https://kauth.kakao.com/oauth/authorize?client_id=0b19f85eee82ee6d30e24d4516cfb359&redirect_uri=http://34.83.199.174:8080/api/v1/auth/kakao/callback&response_type=code';
