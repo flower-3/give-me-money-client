@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Menu, { MenuProps } from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { PropTypes } from '@material-ui/core';
 
 const StyledMenu = withStyles({
   paper: {

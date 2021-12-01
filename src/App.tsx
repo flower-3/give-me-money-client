@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import HeaderBar from './components/HeaderBar';
+import HeaderBar from './components/Header/HeaderBar';
 import GrantTable from './components/GrantTable';
 import Footer from './components/Footer/Footer';
 import { Route } from 'react-router';

@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import HeaderBarMenu from './HeaderBarMenu';
-import TextField from '@material-ui/core/TextField';
+import LoginButton from './LoginButton';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     appBar: {
       marginBottom: '50px',
@@ -39,7 +38,6 @@ export default function HeaderBar() {
   const menuClick = (menuName: string) => {
     setMenuItem(menuName);
   };
-
   return (
     <div>
       <AppBar className={classes.appBar}>
@@ -58,7 +56,7 @@ export default function HeaderBar() {
           <Typography variant="h6" className={classes.title}>
             Give Me Money
           </Typography>
-          <img src="https://developers.kakao.com/tool/resource/static/img/button/login/simple/ko/kakao_login_small.png" />
+          <LoginButton></LoginButton>
         </Toolbar>
       </AppBar>
     </div>
