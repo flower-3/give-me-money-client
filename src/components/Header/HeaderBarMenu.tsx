@@ -50,14 +50,12 @@ const menuList: Array<Menu> = [{ primary: 'HOME' }, { primary: 'MENU1' }, { prim
 
 export default function HeaderBarMenu({ isOpened, anchorEl, menuClick }: Props) {
   return (
-    <div>
-      <StyledMenu id="customized-menu" anchorEl={anchorEl} keepMounted open={isOpened}>
-        {menuList.map((menu) => (
-          <StyledMenuItem key={menu.primary} onClick={() => menuClick(menu.primary)}>
-            <ListItemText primary={menu.primary} />
-          </StyledMenuItem>
-        ))}
-      </StyledMenu>
-    </div>
+    <StyledMenu id="customized-menu" anchorEl={anchorEl} keepMounted open={isOpened}>
+      {menuList.map((menu) => (
+        <StyledMenuItem key={menu.primary} onClick={() => menuClick(menu.primary)}>
+          <ListItemText primary={menu.primary} />
+        </StyledMenuItem>
+      ))}
+    </StyledMenu>
   );
 }

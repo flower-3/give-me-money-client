@@ -19,7 +19,12 @@ const useStyles = makeStyles(() =>
       justifyContent: 'space-between',
       position: 'static',
     },
-    title: { paddingRight: '120px' },
+    title: {
+      position: 'fixed',
+      marginLeft: '40rem',
+      marginRight: '20rem',
+      display: 'inline',
+    },
     textField: {
       marginLeft: '30px',
     },
